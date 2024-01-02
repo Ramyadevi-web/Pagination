@@ -96,7 +96,7 @@ link.style.backgroundColor = "white";
 link.style.color = "blue";
 link.style.padding = "5px 15px";
 link.style.border = "1px solid #80808036";
-link.id = "pageNumBut";
+link.id = `but${i}`;
 link.innerText = i;
 div.append(link);
 link.addEventListener("click",function(){displayData(i)});
@@ -134,14 +134,11 @@ document.body.append(div);
 let current,btncontainer,btns;
 btncontainer = document.getElementById("buttons");
 btns = btncontainer.getElementsByClassName("btns");
-console.log("outsdi")
-console.log("btnlednth",btns.length);
 for(let i = 0;i < btns.length;i++){
-   console.log("for")
    btns[i].addEventListener("click",function(){
-       console.log("clicked");
        current = document.getElementsByClassName("active");
        current[0].className = current[0].className.replace("active","");
+       console.log(current);
        this.className="active";
    });
  }
@@ -170,7 +167,7 @@ function displayData(pageNum){
     let start = (pageNum-1)*10;
     let end = (pageNum*dataPerPage);
     let data = JSON.parse(talbeData.response);
-    for(let i = start,j=0; i <=end,j<=10;i++,j++){
+    for(let i = start,j=0; i <=end,j<10;i++,j++){
         document.getElementById(`td1${j}`).innerText = data[i].id;
         document.getElementById(`td2${j}`).innerText = data[i].name;
         document.getElementById(`td3${j}`).innerText = data[i].email;
@@ -180,11 +177,28 @@ function displayData(pageNum){
 
 //Function for Previous Page
 function prevPage(){
-    displayData(currPage-1);
+    current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace("active","");
+    currPage = currPage-1;
+    if(currPage==1){
+        displayData(currPage);
+    }else{
+        document.getElementById(`but${currPage}`).className = "active";
+        console.log(`td${currPage}`);
+        displayData(currPage);
+    }
 }
 
 //Function for Next Page
 function nextPage(){
-    console.log(`currentpage ${currPage}`);
-     displayData(currPage+1);
+    current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace("active","");
+    currPage = currPage+1;
+    if(currPage==10){
+        displayData(currPage);
+    }else{
+        document.getElementById(`but${currPage}`).className = "active";
+        console.log(`td${currPage}`);
+        displayData(currPage);
+    }
  }
