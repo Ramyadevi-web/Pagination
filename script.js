@@ -138,7 +138,6 @@ for(let i = 0;i < btns.length;i++){
    btns[i].addEventListener("click",function(){
        current = document.getElementsByClassName("active");
        current[0].className = current[0].className.replace("active","");
-       console.log(current);
        this.className="active";
    });
  }
@@ -149,8 +148,7 @@ function displayData(pageNum){
    
     currPage = pageNum;
    
-   
-    let prevButton,nextButton,firstButton,lastButton;
+    let prevButton,nextButton;
     prevButton = document.getElementById("previous");
     nextButton = document.getElementById("next");
     if(currPage == 1){
@@ -177,10 +175,12 @@ function displayData(pageNum){
 
 //Function for Previous Page
 function prevPage(){
+    console.log("prev",currPage)
     current = document.getElementsByClassName("active");
     current[0].className = current[0].className.replace("active","");
     currPage = currPage-1;
     if(currPage==1){
+        document.getElementById("first").className = "active";
         displayData(currPage);
     }else{
         document.getElementById(`but${currPage}`).className = "active";
@@ -195,6 +195,7 @@ function nextPage(){
     current[0].className = current[0].className.replace("active","");
     currPage = currPage+1;
     if(currPage==10){
+        document.getElementById("last").className = "active";
         displayData(currPage);
     }else{
         document.getElementById(`but${currPage}`).className = "active";
